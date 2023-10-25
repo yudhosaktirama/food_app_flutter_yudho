@@ -16,4 +16,13 @@ class tabControl extends ChangeNotifier {
       text: "Past Orders",
     )
   ];
+
+  final List<Tab> tabProfile = <Tab>[
+    new Tab(
+      text: "Account",
+    ),
+    new Tab(
+      text: "FoodMarket",
+    )
+  ];
 }
