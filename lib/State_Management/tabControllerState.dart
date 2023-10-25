@@ -7,4 +7,13 @@ class tabControl extends ChangeNotifier {
     new Tab(text: 'Popular'),
     new Tab(text: 'Recommended'),
   ];
+
+  final List<Tab> taborder = <Tab>[
+    new Tab(
+      text: "In Progress",
+    ),
+    new Tab(
+      text: "Past Orders",
+    )
+  ];
 }
