@@ -33,7 +33,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         child: Text(
                           "Your Order",
                           style: TextStyle(
@@ -45,7 +45,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text("Wait For The Best Meal"),
                       ),
                     ],
