@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/State_Management/FirebaseAuth.dart';
 import 'package:food_app/page/LoginPage.dart';
 import 'package:food_app/page/SuccessRegisterPage.dart';
 import 'package:food_app/widget/AppBarCustom.dart';
 import 'package:food_app/widget/KolomSignUp.dart';
+import 'package:provider/provider.dart';
 
 class AddressPage extends StatelessWidget {
   const AddressPage({super.key});
@@ -26,22 +28,34 @@ class AddressPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.8,
                   child: Column(
                     children: [
-                      KolomSignUpCustom(
-                          hint: "Masukkan Nomor HP",
-                          judul: "Nomor Hp",
-                          terlihat: false),
-                      KolomSignUpCustom(
-                          hint: "Masukkan Alamat",
-                          judul: "Alamat",
-                          terlihat: false),
-                      KolomSignUpCustom(
-                          hint: "Masukkan Nomor Telepon Rumah",
-                          judul: "Nomor Telp Rumah",
-                          terlihat: false),
-                      KolomSignUpCustom(
-                          hint: "Masukkan Asal Kota",
-                          judul: "Kota",
-                          terlihat: false),
+                      Consumer<FirebaseAuthFlutter>(
+                        builder: (context, value, child) => KolomSignUpCustom(
+                            textEditingController: value.nomorHpRegister_C,
+                            hint: "Masukkan Nomor HP",
+                            judul: "Nomor Hp",
+                            terlihat: false),
+                      ),
+                      Consumer<FirebaseAuthFlutter>(
+                        builder: (context, value, child) => KolomSignUpCustom(
+                            textEditingController: value.alamatRegister_C,
+                            hint: "Masukkan Alamat",
+                            judul: "Alamat",
+                            terlihat: false),
+                      ),
+                      Consumer<FirebaseAuthFlutter>(
+                        builder: (context, value, child) => KolomSignUpCustom(
+                            textEditingController:
+                                value.nomorTelpRumahRegister_C,
+                            hint: "Masukkan Nomor Telepon Rumah",
+                            judul: "Nomor Telp Rumah",
+                            terlihat: false),
+                      ),
+                      Consumer<FirebaseAuthFlutter>(
+                          builder: (context, value, child) => KolomSignUpCustom(
+                              textEditingController: value.kotaRegister_C,
+                              hint: "Masukkan Asal Kota",
+                              judul: "Kota",
+                              terlihat: false)),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
@@ -57,11 +71,21 @@ class AddressPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)))),
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return SuccessRegisterPage();
-                                },
-                              ));
+                              try {
+                                Provider.of<FirebaseAuthFlutter>(context,
+                                        listen: false)
+                                    .registerFirebase()
+                                    .then((value) {
+                                  return Navigator.push(context,
+                                        MaterialPageRoute(
+                                      builder: (context) {
+                                        return SuccessRegisterPage();
+                                      },
+                                    ));;
+                                });
+                              } catch (e) {
+                                print(e);
+                              }
                             },
                             child: Text("Sign Up Now")),
                       ),

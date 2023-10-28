@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/State_Management/FirebaseAuth.dart';
 import 'package:food_app/page/HomePage.dart';
 import 'package:food_app/page/RegisterPage.dart';
+import 'package:provider/provider.dart';
 
 import '../widget/EmailPasswordWidget.dart';
 import '../widget/OrContinueIconWidget.dart';
@@ -63,12 +65,18 @@ class LoginPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.8,
                   child: Column(
                     children: [
-                      EmailPasswordWidget(
-                          judul: "Email Address", hint: "Masukkan Email Anda"),
-                      EmailPasswordWidget(
-                        judul: "Password",
-                        hint: "Masukkan Password Anda",
+                      Consumer<FirebaseAuthFlutter>(
+                        builder: (context, value, child) => EmailPasswordWidget(
+                            judul: "Email Address",
+                            hint: "Masukkan Email Anda",
+                            teksEdit: value.emailLogin_C),
                       ),
+                      Consumer<FirebaseAuthFlutter>(
+                          builder: (context, value, child) =>
+                              EmailPasswordWidget(
+                                  judul: "Password",
+                                  hint: "Masukkan Password Anda",
+                                  teksEdit: value.passwordLogin_C)),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.04,
                       ),
@@ -78,29 +86,37 @@ class LoginPage extends StatelessWidget {
                           Container(
                             width: MediaQuery.of(context).size.width * 0.7,
                             height: MediaQuery.of(context).size.height * 0.07,
-                            child: Builder(
-                              builder: (context) {
-                                return ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) {
-                                          return HomePage();
-                                        },
-                                      ));
-                                    },
-                                    child: Text(
-                                      "Sign in",
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                    style: ButtonStyle(
-                                        shape: MaterialStatePropertyAll(
-                                            RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8))),
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(Colors.red)));
-                              }
-                            ),
+                            child: Builder(builder: (context) {
+                              return ElevatedButton(
+                                  onPressed: () {
+                                    try {
+                                      Provider.of<FirebaseAuthFlutter>(context,
+                                              listen: false)
+                                          .loginFirebase()
+                                          .then((value) {
+                                        return Navigator.push(context,
+                                            MaterialPageRoute(
+                                          builder: (context) {
+                                            return HomePage();
+                                          },
+                                        ));
+                                      });
+                                    } catch (e) {
+                                      print(e);
+                                    }
+                                  },
+                                  child: Text(
+                                    "Sign in",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  style: ButtonStyle(
+                                      shape: MaterialStatePropertyAll(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8))),
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          Colors.red)));
+                            }),
                           )
                         ],
                       ),

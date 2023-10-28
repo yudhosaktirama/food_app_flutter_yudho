@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/State_Management/FirebaseAuth.dart';
 import 'package:food_app/page/AddressPage.dart';
+import 'package:provider/provider.dart';
 
 import '../page/LoginPage.dart';
 import 'KolomSignUp.dart';
@@ -21,19 +23,28 @@ class RegisterKolom extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,
           ),
-          KolomSignUpCustom(
-              hint: "Masukkan Nama Lengkap Anda",
-              judul: "Nama Lengkap",
-              terlihat: false),
-          KolomSignUpCustom(
-            hint: "Masukkan Email Anda",
-            judul: "Email Address",
-            terlihat: false,
+          Consumer<FirebaseAuthFlutter>(
+            builder: (context, value, child) =>  KolomSignUpCustom(
+              textEditingController: value.namaLengkapRegister_C,
+                hint: "Masukkan Nama Lengkap Anda",
+                judul: "Nama Lengkap",
+                terlihat: false),
           ),
-          KolomSignUpCustom(
-            hint: "Masukkan Password Anda",
-            judul: "Password",
-            terlihat: true,
+          Consumer<FirebaseAuthFlutter>(
+            builder: (context, value, child) => KolomSignUpCustom(
+              textEditingController: value.emailRegister_C,
+              hint: "Masukkan Email Anda",
+              judul: "Email Address",
+              terlihat: false,
+            ), 
+          ),
+          Consumer<FirebaseAuthFlutter>(
+            builder: (context, value, child) => KolomSignUpCustom(
+              textEditingController: value.passwordRegister_C,
+              hint: "Masukkan Password Anda",
+              judul: "Password",
+              terlihat: true,
+            ), 
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-
 class KolomSignUpCustom extends StatelessWidget {
+  final TextEditingController textEditingController;
   final String judul;
   final String hint;
   final bool terlihat;
   KolomSignUpCustom({
+    required this.textEditingController,
     required this.hint,
     required this.judul,
     required this.terlihat,
@@ -36,6 +37,7 @@ class KolomSignUpCustom extends StatelessWidget {
                   child: Container(
                 child: Center(
                   child: TextField(
+                    controller: textEditingController,
                     obscureText: terlihat,
                     decoration: InputDecoration(
                         hintText: hint,
