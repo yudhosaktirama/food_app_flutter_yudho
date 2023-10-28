@@ -79,13 +79,13 @@ class ListMakananWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.26,
+                    width: MediaQuery.of(context).size.width * 0.24,
                     height: MediaQuery.of(context).size.height * 0.15,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.18,
+                          width: MediaQuery.of(context).size.width * 0.16,
                           height: MediaQuery.of(context).size.height * 0.05,
                           decoration: BoxDecoration(
                               image: DecorationImage(

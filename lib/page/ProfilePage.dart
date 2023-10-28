@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:food_app/State_Management/tabControllerState.dart';
 import 'package:food_app/widget/AccountWidget.dart';
 import 'package:food_app/widget/FoodMarketWidget.dart';
-import 'package:food_app/widget/ProfileWidget.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
