@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'DoubleTextWidget.dart';
 
 class DetailTransaksiWidget extends StatelessWidget {
-  const DetailTransaksiWidget({
+  final int totalHarga;
+  final int totalBayar;
+  DetailTransaksiWidget({
+    required this.totalBayar,
+    required this.totalHarga,
     super.key,
   });
 
@@ -14,12 +18,11 @@ class DetailTransaksiWidget extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.05,
-          child: Center(
+          child: const Center(
               child: Row(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 3),
+                padding: EdgeInsets.symmetric(horizontal: 3),
                 child: Text(
                   "Detail Transaction",
                   style: TextStyle(fontSize: 16),
@@ -32,12 +35,23 @@ class DetailTransaksiWidget extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                DoubleTextWidget(kunci: "Ayam Goreng",value: "IDR 198.000",),
-                DoubleTextWidget(kunci: "Driver",value: "IDR 50.000",),
-                DoubleTextWidget(kunci: "Pajak",value: "IDR 10.000",),
-                DoubleTextWidget(kunci: "Total Harga",value: "IDR 300.000",),
-                ],
-                
+                DoubleTextWidget(
+                  kunci: "Ayam Goreng",
+                  value: "IDR $totalHarga",
+                ),
+                DoubleTextWidget(
+                  kunci: "Driver",
+                  value: "IDR 10000",
+                ),
+                DoubleTextWidget(
+                  kunci: "Pajak",
+                  value: "IDR 10000",
+                ),
+                DoubleTextWidget(
+                  kunci: "Total Harga",
+                  value: "IDR $totalBayar",
+                ),
+              ],
             ),
           ),
         )

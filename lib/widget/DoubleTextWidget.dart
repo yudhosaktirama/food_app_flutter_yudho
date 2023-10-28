@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class DoubleTextWidget extends StatelessWidget {
   final String kunci;
   final String value;
-  const DoubleTextWidget({
+  DoubleTextWidget({
     required this.kunci,
     required this.value,
     super.key,

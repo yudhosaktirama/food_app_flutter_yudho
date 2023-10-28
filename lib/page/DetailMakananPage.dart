@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/Model/ListModel.dart';
 import 'package:food_app/page/PembayaranPage.dart';
+import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class DetailMakananPage extends StatelessWidget {
-  const DetailMakananPage({super.key});
+  final String namaMakanan;
+  final double rating;
+  final String deskripsi;
+  final String bahanMakanan;
+  final String gambarMakanan;
+
+  int harga;
+  DetailMakananPage(
+      {super.key,
+      required this.bahanMakanan,
+      required this.deskripsi,
+      required this.gambarMakanan,
+      required this.harga,
+      required this.namaMakanan,
+      required this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +68,7 @@ class DetailMakananPage extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Ayam Goreng",
+                                        namaMakanan,
                                         style: TextStyle(fontSize: 20),
                                       ),
                                       Row(
@@ -72,85 +89,105 @@ class DetailMakananPage extends StatelessWidget {
                                                     image: AssetImage(
                                                         "asset/stars.png"))),
                                           ),
-                                          Text("4.1")
+                                          Text(rating.toString())
                                         ],
                                       )
                                     ],
                                   ),
                                 ),
                                 Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.35,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.12,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.1,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: ElevatedButton(
-                                            style: ButtonStyle(
-                                                shape: MaterialStatePropertyAll(
-                                                    RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8))),
-                                                side: MaterialStatePropertyAll(
-                                                    BorderSide(strokeAlign: 1)),
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.white)),
-                                            onPressed: () {},
-                                            child: Text(
-                                              "-",
-                                              style: TextStyle(
-                                                  fontSize: 25,
-                                                  color: Colors.black),
-                                            )),
-                                      ),
-                                      Text("14"),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.1,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: ElevatedButton(
-                                            style: ButtonStyle(
-                                                shape: MaterialStatePropertyAll(
-                                                    RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8))),
-                                                side: MaterialStatePropertyAll(
-                                                    BorderSide(strokeAlign: 1)),
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.white)),
-                                            onPressed: () {},
-                                            child: Text(
-                                              "+",
-                                              style: TextStyle(
-                                                  fontSize: 25,
-                                                  color: Colors.black),
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                    width: MediaQuery.of(context).size.width *
+                                        0.35,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.12,
+                                    child: Consumer<ListMakananLokal>(
+                                      builder: (context, value, child) {
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.1,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.05,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8)),
+                                              child: ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      shape: MaterialStatePropertyAll(
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8))),
+                                                      side:
+                                                          MaterialStatePropertyAll(
+                                                              BorderSide(
+                                                                  strokeAlign:
+                                                                      1)),
+                                                      backgroundColor:
+                                                          MaterialStatePropertyAll(
+                                                              Colors.white)),
+                                                  onPressed: () {
+                                                    value.Decrement();
+                                                  },
+                                                  child: Text(
+                                                    "-",
+                                                    style: TextStyle(
+                                                        fontSize: 25,
+                                                        color: Colors.black),
+                                                  )),
+                                            ),
+                                            Text(value.counterMakanan
+                                                .toString()),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.1,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.05,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8)),
+                                              child: ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      shape: MaterialStatePropertyAll(
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8))),
+                                                      side:
+                                                          MaterialStatePropertyAll(
+                                                              BorderSide(
+                                                                  strokeAlign:
+                                                                      1)),
+                                                      backgroundColor:
+                                                          MaterialStatePropertyAll(
+                                                              Colors.white)),
+                                                  onPressed: () {
+                                                    value.Increment();
+                                                  },
+                                                  child: Text(
+                                                    "+",
+                                                    style: TextStyle(
+                                                        fontSize: 25,
+                                                        color: Colors.black),
+                                                  )),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ))
                               ],
                             ),
                           ),
@@ -162,7 +199,7 @@ class DetailMakananPage extends StatelessWidget {
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.vertical,
                                 child: Text(
-                                  "Makanan khas Bandung yang cukup sering dipesan oleh anak muda dengan pola makayang cukup tinggi dengan mengutamakan diet yang sehat dan teratur",
+                                  deskripsi,
                                   style: TextStyle(
                                       fontSize: 16, color: Colors.grey),
                                 ),
@@ -191,7 +228,7 @@ class DetailMakananPage extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8),
                                       child: Text(
-                                        "Seledri, telur, blueberry, madu.",
+                                        bahanMakanan,
                                         style: TextStyle(
                                             color: Colors.grey, fontSize: 16),
                                       ),
@@ -232,9 +269,13 @@ class DetailMakananPage extends StatelessWidget {
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 10),
-                                            child: Text(
-                                              "IDR 128.000.00",
-                                              style: TextStyle(fontSize: 16),
+                                            child: Consumer<ListMakananLokal>(
+                                              builder:
+                                                  (context, value, child) =>
+                                                      Text(
+                                                "IDR ${value.hargaMakanan(harga)}",
+                                                style: TextStyle(fontSize: 16),
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -249,25 +290,34 @@ class DetailMakananPage extends StatelessWidget {
                                       MediaQuery.of(context).size.height * 0.08,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  Colors.red),
-                                          shape: MaterialStatePropertyAll(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12)))),
-                                      onPressed: () {
-                                        Navigator.push(context,
-                                            MaterialPageRoute(
-                                          builder: (context) {
-                                            return PembayaranPage();
+                                  child: Consumer<ListMakananLokal>(
+                                    builder: (context, value, child) {
+                                      return ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStatePropertyAll(
+                                                      Colors.red),
+                                              shape: MaterialStatePropertyAll(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12)))),
+                                          onPressed: () {
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                              builder: (context) {
+                                                return PembayaranPage(
+                                                  gambarMakanan: gambarMakanan,
+                                                  namaMakanan: namaMakanan,
+                                                  totalHarga: value.hargaMakanan(harga),
+                                                  totalItem: value.counterMakanan,
+                                                );
+                                              },
+                                            ));
                                           },
-                                        ));
-                                      },
-                                      child: Text("Order Now")),
+                                          child: Text("Order Now"));
+                                    },
+                                  ),
                                 )
                               ],
                             ),
@@ -287,6 +337,9 @@ class DetailMakananPage extends StatelessWidget {
                               backgroundColor:
                                   MaterialStatePropertyAll(Colors.red)),
                           onPressed: () {
+                            Provider.of<ListMakananLokal>(context,
+                                    listen: false)
+                                .setUlangCounter();
                             Navigator.pop(context);
                           },
                           child: Icon(Icons.arrow_back_ios)),
