@@ -28,6 +28,6 @@ class FoodMarketWidget extends StatelessWidget {
         ],
       ),
     );
-    ;
+    
   }
 }

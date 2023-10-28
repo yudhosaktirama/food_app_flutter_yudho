@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class NewTasteModel {
   String nama;
   int harga;
