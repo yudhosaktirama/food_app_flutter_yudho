@@ -3,6 +3,7 @@ import 'package:food_app/Model/NewTasteModel.dart';
 
 class ListMakananLokal extends ChangeNotifier {
   List<InProgressModel> lisProgress = [];
+  bool isLoading = true;
   int counterMakanan = 1;
 
   int hargaMakananTotal = 0;
@@ -92,6 +93,7 @@ class ListMakananLokal extends ChangeNotifier {
 
   void setCheckout(String nama, int totalHarga, int totalItem, String gambar) {
     lisProgress.add(InProgressModel(
+        email: "",
         gambar: gambar,
         nama: nama,
         totalBeli: counterMakanan,

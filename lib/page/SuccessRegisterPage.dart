@@ -10,7 +10,7 @@ class SuccessRegisterPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: null,
-        body: Column(
+        body: ListView(
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
@@ -72,7 +72,7 @@ class SuccessRegisterPage extends StatelessWidget {
                       child: Text("Find Food")),
                 )
               ],
-            )
+            ),
           ],
         ),
       ),

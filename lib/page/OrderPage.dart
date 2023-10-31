@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/Model/ListModel.dart';
+import 'package:food_app/State_Management/FirebaseAuth.dart';
 import 'package:food_app/State_Management/tabControllerState.dart';
 import 'package:food_app/widget/InProgressWidget.dart';
 import 'package:food_app/widget/PostOrderWidget.dart';
+import 'package:provider/provider.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
@@ -16,6 +19,10 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     orderTabControler = TabController(length: 2, vsync: this);
+    FirebaseMakanan().tampilkanMakanan().then((value) {
+      Provider.of<ListMakananLokal>(context, listen: false).lisProgress = value;
+      Provider.of<ListMakananLokal>(context, listen: false).isLoading = false;
+    });
   }
 
   @override
@@ -33,7 +40,8 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
                         child: Text(
                           "Your Order",
                           style: TextStyle(
@@ -69,14 +77,18 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Card(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  child: TabBarView(
-                      controller: orderTabControler,
-                      children: [InProgressWidget(), PostOrderWidget()]),
-                ),
+              child: Consumer<ListMakananLokal>(
+                builder: (context, value, child) {
+                  return value.isLoading? CircularProgressIndicator() : Card(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.6,
+                    child: TabBarView(
+                        controller: orderTabControler,
+                        children: [InProgressWidget(), PostOrderWidget()]),
+                  ),
+                );
+                }, 
               ),
             )
           ],

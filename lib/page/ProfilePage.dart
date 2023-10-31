@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/State_Management/FirebaseAuth.dart';
 import 'package:food_app/State_Management/tabControllerState.dart';
+import 'package:food_app/page/LoginPage.dart';
 import 'package:food_app/widget/AccountWidget.dart';
 import 'package:food_app/widget/FoodMarketWidget.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -34,9 +37,10 @@ class _ProfilePageState extends State<ProfilePage>
               width: MediaQuery.of(context).size.width * 0.2,
               height: MediaQuery.of(context).size.height * 0.1,
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(image: NetworkImage("https://64.media.tumblr.com/e2737d236a230a70d7c2cd362f6e77c3/5828cd1ac5de3062-6c/s1280x1920/265217f966d50afe66cab43459366d51809748b8.jpg"))
-              ),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          "https://64.media.tumblr.com/e2737d236a230a70d7c2cd362f6e77c3/5828cd1ac5de3062-6c/s1280x1920/265217f966d50afe66cab43459366d51809748b8.jpg"))),
             ),
           ],
         ),
@@ -67,10 +71,11 @@ class _ProfilePageState extends State<ProfilePage>
           child: Card(
             child: Container(
               child: TabBar(
-                indicatorPadding: EdgeInsets.symmetric(horizontal: 50),
-                indicatorColor: Colors.black,
-                labelColor: Colors.black,
-                  controller: profileTabControler, tabs: tabControl().tabProfile),
+                  indicatorPadding: EdgeInsets.symmetric(horizontal: 50),
+                  indicatorColor: Colors.black,
+                  labelColor: Colors.black,
+                  controller: profileTabControler,
+                  tabs: tabControl().tabProfile),
             ),
           ),
         ),
@@ -83,6 +88,32 @@ class _ProfilePageState extends State<ProfilePage>
                 controller: profileTabControler,
                 children: [AccountWidget(), FoodMarketWidget()]),
           ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.5,
+              height: MediaQuery.of(context).size.height * 0.07,
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.red),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)))),
+                  onPressed: () {
+                    Provider.of<FirebaseAuthFlutter>(context,listen: false)
+                        .signOutFirebase()
+                        .then((value) {
+                      return Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ));
+                    });
+                  },
+                  child: Text("Sign Out")),
+            ),
+          ],
         )
       ],
     );

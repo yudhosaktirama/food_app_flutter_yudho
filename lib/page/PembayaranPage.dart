@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/Model/ListModel.dart';
+import 'package:food_app/State_Management/FirebaseAuth.dart';
 import 'package:food_app/widget/AppBarCustom.dart';
 import 'package:food_app/widget/DoubleTextWidget.dart';
 import 'package:provider/provider.dart';
@@ -92,21 +93,22 @@ class PembayaranPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStatePropertyAll(Colors.red)),
-                        onPressed: () {
-                          Provider.of<ListMakananLokal>(context,listen: false).setCheckout(
-                              namaMakanan,
-                              Provider.of<ListMakananLokal>(context,listen: false).TotalBayar(),
-                              totalItem,
-                              gambarMakanan);
-                        },
-                        child: Text("Checkout Now")),
+                  Consumer<ListMakananLokal>(
+                    builder: (context, value, child) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.red)),
+                            onPressed: () {
+                              FirebaseMakanan().tambahMakanan(
+                                  totalItem, namaMakanan, value.TotalBayar(),gambarMakanan);
+                            },
+                            child: Text("Checkout Now")),
+                      );
+                    },
                   )
                 ],
               ),

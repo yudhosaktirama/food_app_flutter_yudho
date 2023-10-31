@@ -76,12 +76,14 @@ class AddressPage extends StatelessWidget {
                                         listen: false)
                                     .registerFirebase()
                                     .then((value) {
-                                  return Navigator.push(context,
+                                  return Provider.of<FirebaseAuthFlutter>(context, listen: false).createUserBaru().then((value) {
+                                    return  Navigator.push(context,
                                         MaterialPageRoute(
                                       builder: (context) {
                                         return SuccessRegisterPage();
                                       },
-                                    ));;
+                                    ));
+                                  }); 
                                 });
                               } catch (e) {
                                 print(e);

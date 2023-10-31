@@ -13,7 +13,7 @@ Future<void> main() async {
     ChangeNotifierProvider(
       create: (context) => ListMakananLokal(),
     ),
-    ChangeNotifierProvider(create: (context) => FirebaseAuthFlutter(),)
+    ChangeNotifierProvider(create: (context) => FirebaseAuthFlutter(),),
   ], child: LoginPage()));
 }
 
