@@ -16,7 +16,7 @@ class ListMakananLokal extends ChangeNotifier {
             "https://img.qraved.co/v2/image/data/2015/11/05/ayam_bakar-740x493-x.jpg",
         harga: 10000,
         nama: "Ayam Bakar",
-        rating: 4.0),
+        rating: 5.0),
     NewTasteModel(
         bahanMakanan: "800 g (1 ekor) ayam utuh,20 g asam jawa,",
         deskripsi:
@@ -112,6 +112,16 @@ class ListMakananLokal extends ChangeNotifier {
       counterMakanan -= 1;
       notifyListeners();
     }
+  }
+
+  void setLoading() {
+    isLoading = false;
+    notifyListeners();
+  }
+
+  void setLoadingTrue() {
+    isLoading = true;
+    notifyListeners();
   }
 
   void setUlangCounter() {

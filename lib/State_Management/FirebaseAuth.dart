@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -60,11 +61,10 @@ class FirebaseMakanan {
     });
   }
 
+
   Future<List<InProgressModel>> tampilkanMakanan() async {
     List<InProgressModel> listProgress = [];
-    final querySnapshot = await _firebaseFirestore
-        .collection('makanan')
-        .get();
+    final querySnapshot = await _firebaseFirestore.collection('makanan').get();
 
     List<InProgressModel> data =
         querySnapshot.docs.map((e) => InProgressModel.fromJSON(e)).toList();

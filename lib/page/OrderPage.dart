@@ -19,10 +19,6 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     orderTabControler = TabController(length: 2, vsync: this);
-    FirebaseMakanan().tampilkanMakanan().then((value) {
-      Provider.of<ListMakananLokal>(context, listen: false).lisProgress = value;
-      Provider.of<ListMakananLokal>(context, listen: false).isLoading = false;
-    });
   }
 
   @override
@@ -79,16 +75,25 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
               padding: const EdgeInsets.all(8.0),
               child: Consumer<ListMakananLokal>(
                 builder: (context, value, child) {
-                  return value.isLoading? CircularProgressIndicator() : Card(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    child: TabBarView(
-                        controller: orderTabControler,
-                        children: [InProgressWidget(), PostOrderWidget()]),
-                  ),
-                );
-                }, 
+                  FirebaseMakanan().tampilkanMakanan().then((nilaiBaru) {
+                    value.lisProgress = nilaiBaru;
+                    value.setLoading();
+                  });
+                  return value.isLoading
+                      ? CircularProgressIndicator()
+                      : Card(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.6,
+                            child: TabBarView(
+                                controller: orderTabControler,
+                                children: [
+                                  InProgressWidget(),
+                                  PostOrderWidget()
+                                ]),
+                          ),
+                        );
+                },
               ),
             )
           ],
