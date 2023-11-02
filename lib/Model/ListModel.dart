@@ -5,6 +5,7 @@ class ListMakananLokal extends ChangeNotifier {
   List<InProgressModel> lisProgress = [];
   bool isLoading = true;
   int counterMakanan = 1;
+  int counterupdate = 1;
 
   int hargaMakananTotal = 0;
   List<NewTasteModel> lisNewTaste = [
@@ -93,6 +94,7 @@ class ListMakananLokal extends ChangeNotifier {
 
   void setCheckout(String nama, int totalHarga, int totalItem, String gambar) {
     lisProgress.add(InProgressModel(
+        harga: 1000,
         email: "",
         gambar: gambar,
         nama: nama,
@@ -114,6 +116,18 @@ class ListMakananLokal extends ChangeNotifier {
     }
   }
 
+  void updateItemINC(int counterMakanan) {
+    counterupdate += 1;
+    notifyListeners();
+  }
+   void updateItemDCT(int counterMakanan) {
+    if (counterupdate <= 1) {
+    } else {
+      counterupdate -= 1;
+      notifyListeners();
+    }
+  }
+
   void setLoading() {
     isLoading = false;
     notifyListeners();
@@ -128,6 +142,10 @@ class ListMakananLokal extends ChangeNotifier {
     counterMakanan = 1;
     notifyListeners();
   }
+   void setUlangCounterUpdate(int counter) {
+    counterupdate = 1;
+    notifyListeners();
+  }
 
   int TotalBayar() {
     int totalbayar = hargaMakananTotal + 10000 + 10000;
@@ -137,6 +155,12 @@ class ListMakananLokal extends ChangeNotifier {
   int hargaMakanan(int harga) {
     hargaMakananTotal = harga * counterMakanan;
     return hargaMakananTotal;
+  }
+
+  int updatehargaMakanan(int harga) {
+    hargaMakananTotal = harga * counterupdate;
+    int totalBayar = hargaMakananTotal + 10000 + 10000;
+    return totalBayar;
   }
 
   int get getHargaMakananTotal => hargaMakananTotal;

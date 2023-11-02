@@ -23,9 +23,11 @@ class InProgressModel {
   int totalBeli;
   int totalHarga;
   String email;
+  int harga;
 
   InProgressModel(
       {required this.gambar,
+      required this.harga,
       required this.nama,
       required this.totalBeli,
       required this.email,
@@ -45,6 +47,7 @@ class InProgressModel {
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data();
     return InProgressModel(
+      harga: data?['hargaSatuan'],
         gambar: data?['gambar'],
         nama: data?['makanan'],
         totalBeli: data?['jumlahPesan'],

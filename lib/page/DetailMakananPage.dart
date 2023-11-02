@@ -307,6 +307,7 @@ class DetailMakananPage extends StatelessWidget {
                                                 MaterialPageRoute(
                                               builder: (context) {
                                                 return PembayaranPage(
+                                                  hargaSatuan: harga,
                                                   gambarMakanan: gambarMakanan,
                                                   namaMakanan: namaMakanan,
                                                   totalHarga: value.hargaMakanan(harga),

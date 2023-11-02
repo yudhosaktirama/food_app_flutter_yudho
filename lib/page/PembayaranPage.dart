@@ -11,10 +11,12 @@ import '../widget/ItemOrderWidget.dart';
 class PembayaranPage extends StatelessWidget {
   final String namaMakanan;
   final int totalHarga;
+  final int hargaSatuan;
   final int totalItem;
   final String gambarMakanan;
   const PembayaranPage(
       {super.key,
+      required this.hargaSatuan,
       required this.gambarMakanan,
       required this.namaMakanan,
       required this.totalHarga,
@@ -104,7 +106,10 @@ class PembayaranPage extends StatelessWidget {
                                     MaterialStatePropertyAll(Colors.red)),
                             onPressed: () {
                               FirebaseMakanan().tambahMakanan(
-                                  totalItem, namaMakanan, value.TotalBayar(),gambarMakanan);
+                                  totalItem,
+                                  namaMakanan,
+                                  value.TotalBayar(),
+                                  gambarMakanan,hargaSatuan);
                             },
                             child: Text("Checkout Now")),
                       );

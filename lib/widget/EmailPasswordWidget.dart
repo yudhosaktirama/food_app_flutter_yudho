@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class EmailPasswordWidget extends StatelessWidget {
   final TextEditingController teksEdit;
   final String judul;
+  final bool tidakTerliihat;
   final String hint;
   const EmailPasswordWidget({
+    required this.tidakTerliihat,
     required this.teksEdit,
     required this.hint,
     required this.judul,
@@ -41,6 +43,7 @@ class EmailPasswordWidget extends StatelessWidget {
                 Expanded(
                   child: Container(
                     child: TextField(
+                      obscureText: tidakTerliihat,
                       controller: teksEdit,
                       decoration: InputDecoration(
                           hintText: hint,

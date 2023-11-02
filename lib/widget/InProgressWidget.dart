@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/Model/ListModel.dart';
-import 'package:food_app/State_Management/FirebaseAuth.dart';
+import 'package:food_app/page/EditPage.dart';
 import 'package:provider/provider.dart';
 
 class InProgressWidget extends StatelessWidget {
@@ -30,16 +30,32 @@ class InProgressWidget extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.25,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.15,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            value.lisProgress[index].gambar),
-                                        fit: BoxFit.cover)),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) {
+                                      return EditPage(
+                                        id: documentSnapshot.id,
+                                        counter: documentSnapshot['jumlahPesan'],
+                                        hargaSatuan: documentSnapshot['hargaSatuan'],
+                                        indexku: index,
+                                      );
+                                      ;
+                                    },
+                                  ));
+                                },
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.25,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.15,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              documentSnapshot['gambar']),
+                                          fit: BoxFit.cover)),
+                                ),
                               ),
                             ),
                             Padding(
@@ -54,8 +70,8 @@ class InProgressWidget extends StatelessWidget {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.all(10.0),
-                                          child: Text(
-                                              value.lisProgress[index].nama),
+                                          child:
+                                              Text(documentSnapshot['makanan']),
                                         ),
                                       ],
                                     ),
@@ -65,10 +81,10 @@ class InProgressWidget extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10),
                                           child: Text(
-                                              "${value.lisProgress[index].totalBeli} Item"),
+                                              "${documentSnapshot['jumlahPesan']} Item"),
                                         ),
                                         Text(
-                                            "IDR ${value.lisProgress[index].totalHarga}")
+                                            "IDR ${documentSnapshot['totalHarga']}")
                                       ],
                                     )
                                   ],

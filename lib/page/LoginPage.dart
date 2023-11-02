@@ -67,6 +67,7 @@ class LoginPage extends StatelessWidget {
                     children: [
                       Consumer<FirebaseAuthFlutter>(
                         builder: (context, value, child) => EmailPasswordWidget(
+                          tidakTerliihat: false,
                             judul: "Email Address",
                             hint: "Masukkan Email Anda",
                             teksEdit: value.emailLogin_C),
@@ -74,6 +75,7 @@ class LoginPage extends StatelessWidget {
                       Consumer<FirebaseAuthFlutter>(
                           builder: (context, value, child) =>
                               EmailPasswordWidget(
+                                tidakTerliihat: true,
                                   judul: "Password",
                                   hint: "Masukkan Password Anda",
                                   teksEdit: value.passwordLogin_C)),

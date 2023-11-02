@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +43,15 @@ class FirebaseAuthFlutter extends ChangeNotifier {
   Future<void> signOutFirebase() async {
     await _firebaseAuth.signOut();
   }
+
+  Future<bool> isUserLogin() async {
+    User? user = _firebaseAuth.currentUser;
+    if (user != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 class FirebaseMakanan {
@@ -51,8 +59,9 @@ class FirebaseMakanan {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<void> tambahMakanan(int jumlahPesanan, String namaMakanan,
-      int totalHarga, String gambar) async {
+      int totalHarga, String gambar, int harga) async {
     await _firebaseFirestore.collection("makanan").add({
+      'hargaSatuan': harga,
       'email': _firebaseAuth.currentUser?.email,
       'jumlahPesan': jumlahPesanan,
       'makanan': namaMakanan,
@@ -60,7 +69,6 @@ class FirebaseMakanan {
       'gambar': gambar
     });
   }
-
 
   Future<List<InProgressModel>> tampilkanMakanan() async {
     List<InProgressModel> listProgress = [];
@@ -73,5 +81,12 @@ class FirebaseMakanan {
     }
 
     return listProgress;
+  }
+
+  Future<void> updatePesanan(int totalItem, int hargatotal, String id) async {
+    await _firebaseFirestore
+        .collection('makanan')
+        .doc(id)
+        .update({'jumlahPesan': totalItem, 'totalHarga': hargatotal});
   }
 }
