@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/Model/ListModel.dart';
 import 'package:food_app/page/EditPage.dart';
@@ -13,7 +14,7 @@ class InProgressWidget extends StatelessWidget {
       builder: (context, value, child) {
         return StreamBuilder(
             stream:
-                FirebaseFirestore.instance.collection('makanan').snapshots(),
+                FirebaseFirestore.instance.collection('makanan').where('email',isEqualTo: FirebaseAuth.instance.currentUser?.email).snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
               if (streamSnapshot.hasData) {
                 return ListView.builder(
@@ -40,7 +41,6 @@ class InProgressWidget extends StatelessWidget {
                                         hargaSatuan: documentSnapshot['hargaSatuan'],
                                         indexku: index,
                                       );
-                                      ;
                                     },
                                   ));
                                 },
